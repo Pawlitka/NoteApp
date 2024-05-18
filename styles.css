@@ -51,4 +51,25 @@
     cursor: pointer;
 }
 
+.input-box {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    min-height: 150px;
+    background: var(--lavender-pink-color);
+    border-radius: 40px;
+    border: 2px solid var(--amethyst-color);
+    color: var(--amethyst-color);
+    padding: 20px;
+    margin: 20px 0;
+    outline: none;
+}
+
+.input-box img {
+    width: 25px;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    cursor: pointer;
+}
 
