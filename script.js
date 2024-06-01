@@ -1,6 +1,6 @@
 const NOTES_CONTAINER = document.querySelector('.notes-container');
 const CREATE_BUTTON = document.querySelector('.create-button');
-let notes = document.querySelectorAll(".input-box");
+const notes = document.querySelectorAll(".input-box");
 
 function showNotes() {
     NOTES_CONTAINER.innerHTML = localStorage.getItem("notes");
@@ -11,7 +11,7 @@ function updateStorage() {
     localStorage.setItem("notes", NOTES_CONTAINER.innerHTML);
 }
 
-CREATE_BUTTON.addEventListener('click', (e) => {
+CREATE_BUTTON.addEventListener('click', () => {
     let inputBox = document.createElement("p");
     let img = document.createElement("img");
     inputBox.className = "input-box";
