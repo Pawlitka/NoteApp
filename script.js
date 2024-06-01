@@ -1,6 +1,5 @@
 const NOTES_CONTAINER = document.querySelector('.notes-container');
 const CREATE_BUTTON = document.querySelector('.create-button');
-let NOTES = document.querySelectorAll(".input-box");
 const LOCAL_STORAGE_NOTES_KEY = "notes";
 
 function getNotes() {
@@ -8,12 +7,12 @@ function getNotes() {
 }
 
 function showNotes() {
-    NOTES_CONTAINER.innerHTML = getNotes()
+    NOTES_CONTAINER.innerHTML = getNotes();
 }
-showNotes()
+showNotes();
 
 function updateStorage() {
-    localStorage.setItem("NOTES", getNotes());
+    localStorage.setItem(LOCAL_STORAGE_NOTES_KEY, NOTES_CONTAINER.innerHTML);
 }
 
 CREATE_BUTTON.addEventListener('click', () => {
@@ -28,11 +27,11 @@ CREATE_BUTTON.addEventListener('click', () => {
 NOTES_CONTAINER.addEventListener("click", function(e) {
     if(e.target.tagName === "IMG") {
         e.target.parentElement.remove();
-        updateStorage()
+        updateStorage();
     }
     else if(e.target.tagName === "P") {
-        NOTES = document.querySelectorAll(".input-box");
-        NOTES.forEach(nt => {
+        let notes = document.querySelectorAll(".input-box");
+        notes.forEach(nt => {
             nt.onkeyup = function() {
                 updateStorage();
             }
