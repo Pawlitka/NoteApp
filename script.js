@@ -1,14 +1,19 @@
 const NOTES_CONTAINER = document.querySelector('.notes-container');
 const CREATE_BUTTON = document.querySelector('.create-button');
 let NOTES = document.querySelectorAll(".input-box");
+const LOCAL_STORAGE_NOTES_KEY = "notes";
+
+function getNotes() {
+    return localStorage.getItem(LOCAL_STORAGE_NOTES_KEY);
+}
 
 function showNotes() {
-    NOTES_CONTAINER.innerHTML = localStorage.getItem("NOTES");
+    NOTES_CONTAINER.innerHTML = getNotes()
 }
 showNotes()
 
 function updateStorage() {
-    localStorage.setItem("NOTES", NOTES_CONTAINER.innerHTML);
+    localStorage.setItem("NOTES", getNotes());
 }
 
 CREATE_BUTTON.addEventListener('click', () => {
