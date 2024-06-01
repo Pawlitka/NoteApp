@@ -15,14 +15,37 @@ function updateStorage() {
     localStorage.setItem(LOCAL_STORAGE_NOTES_KEY, NOTES_CONTAINER.innerHTML);
 }
 
-CREATE_BUTTON.addEventListener('click', () => {
+const DELETE_IMAGE_SOURCE = 'images/delete.png';
+
+CREATE_BUTTON.addEventListener('click', handleCreateNote);
+
+function handleCreateNote() {
+    let noteBlock = prepareNoteElement();
+    NOTES_CONTAINER.appendChild(noteBlock);
+}
+
+function prepareNoteElement() {
+    const img = createDeleteImageElement()
+
+    let inputBox = createInputBoxElement()
+    inputBox.appendChild(img);
+
+    return inputBox;
+}
+
+function createDeleteImageElement() {
+    let img = document.createElement('img');
+    img.src = DELETE_IMAGE_SOURCE;
+    return img;
+}
+
+function createInputBoxElement() {
     let inputBox = document.createElement("p");
-    let img = document.createElement("img");
     inputBox.className = "input-box";
-    inputBox.setAttribute("contenteditable", "true");
-    img.src = "images/delete.png";
-    NOTES_CONTAINER.appendChild(inputBox).appendChild(img);
-})
+    inputBox.setAttribute('contenteditable', 'true');
+    return inputBox;
+}
+
 
 NOTES_CONTAINER.addEventListener("click", function(e) {
     if(e.target.tagName === "IMG") {
