@@ -54,12 +54,12 @@ function overrideOnKeyUpInputBoxElement() {
     });
 }
 
-document.addEventListener("keydown", event => {
-    if(event.key ==="Enter") {
+function handleOnKeyDownDocument(event) {
+    if(event.key === "Enter") {
         document.execCommand("insertLineBreak");
         event.preventDefault();
     }
-})
+}
 
 function updateNotes() {
     localStorage.setItem(LOCAL_STORAGE_NOTES_KEY, NOTES_CONTAINER.innerHTML);
@@ -75,5 +75,6 @@ function showNotes() {
 
 CREATE_BUTTON.addEventListener('click', handleCreateNote);
 NOTES_CONTAINER.addEventListener("click", handleOnClickNotesContainer);
+document.addEventListener("keydown",  handleOnKeyDownDocument);
 
 showNotes();
