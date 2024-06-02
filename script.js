@@ -2,22 +2,7 @@ const NOTES_CONTAINER = document.querySelector('.notes-container');
 const CREATE_BUTTON = document.querySelector('.create-button');
 const LOCAL_STORAGE_NOTES_KEY = "notes";
 
-function getNotes() {
-    return localStorage.getItem(LOCAL_STORAGE_NOTES_KEY);
-}
-
-function showNotes() {
-    NOTES_CONTAINER.innerHTML = getNotes();
-}
-showNotes();
-
-function updateStorage() {
-    localStorage.setItem(LOCAL_STORAGE_NOTES_KEY, NOTES_CONTAINER.innerHTML);
-}
-
 const DELETE_IMAGE_SOURCE = 'images/delete.png';
-
-CREATE_BUTTON.addEventListener('click', handleCreateNote);
 
 function handleCreateNote() {
     let noteBlock = prepareNoteElement();
@@ -46,21 +31,28 @@ function createInputBoxElement() {
     return inputBox;
 }
 
+function handleOnClickNotesContainer(event) {
+    const tagName = event.target.tagName;
 
-NOTES_CONTAINER.addEventListener("click", function(e) {
-    if(e.target.tagName === "IMG") {
-        e.target.parentElement.remove();
-        updateStorage();
+    if (tagName === "IMG") {
+        removeInputBoxElement(event.target);
+    } else if (tagName === "P") {
+        overrideOnKeyUpInputBoxElement();
     }
-    else if(e.target.tagName === "P") {
-        let notes = document.querySelectorAll(".input-box");
-        notes.forEach(nt => {
-            nt.onkeyup = function() {
-                updateStorage();
-            }
-        })
-    }
-})
+}
+
+function removeInputBoxElement(target) {
+    target.parentElement.remove();
+}
+
+function overrideOnKeyUpInputBoxElement() {
+    let notes = document.querySelectorAll(".input-box");
+    notes.forEach(nt => {
+        nt.onkeyup = function () {
+            updateNotes();
+        }
+    });
+}
 
 document.addEventListener("keydown", event => {
     if(event.key ==="Enter") {
@@ -68,3 +60,20 @@ document.addEventListener("keydown", event => {
         event.preventDefault();
     }
 })
+
+function updateNotes() {
+    localStorage.setItem(LOCAL_STORAGE_NOTES_KEY, NOTES_CONTAINER.innerHTML);
+}
+
+function getNotes() {
+    return localStorage.getItem(LOCAL_STORAGE_NOTES_KEY);
+}
+
+function showNotes() {
+    NOTES_CONTAINER.innerHTML = getNotes();
+}
+
+CREATE_BUTTON.addEventListener('click', handleCreateNote);
+NOTES_CONTAINER.addEventListener("click", handleOnClickNotesContainer);
+
+showNotes();
